@@ -1,6 +1,6 @@
 # 🧩 User Management Frontend
 
-Angular frontend for the [User Management API](https://github.com/tuusuario/user-management-api).
+Angular frontend for the [User Management API](https://github.com/bakaruu/user-management-api).
 
 A minimal but functional SPA that demonstrates end-to-end integration with a secured Spring Boot REST API using JWT authentication and role-based access control.
 
