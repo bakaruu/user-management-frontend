@@ -1,0 +1,47 @@
+<div class="profile-container">
+  <div class="header">
+    <h2>My Profile</h2>
+    <button (click)="logout()" class="logout-btn">Logout</button>
+  </div>
+
+  <div *ngIf="user">
+    <div *ngIf="!editing" class="info">
+      <p><strong>First Name:</strong> {{ user.firstName }}</p>
+      <p><strong>Last Name:</strong> {{ user.lastName }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>DNI:</strong> {{ user.dni }}</p>
+      <p><strong>Role:</strong> {{ user.role }}</p>
+      <p><strong>Status:</strong> {{ user.status }}</p>
+      <button (click)="editing = true">Edit Profile</button>
+    </div>
+
+    <form *ngIf="editing" (ngSubmit)="onUpdate()">
+      <div>
+        <label>First Name</label>
+        <input type="text" [(ngModel)]="updateRequest.firstName" name="firstName" />
+      </div>
+      <div>
+        <label>Last Name</label>
+        <input type="text" [(ngModel)]="updateRequest.lastName" name="lastName" />
+      </div>
+      <div>
+        <label>Email</label>
+        <input type="email" [(ngModel)]="updateRequest.email" name="email" />
+      </div>
+      <div>
+        <label>New Password (optional)</label>
+        <input type="password" [(ngModel)]="updateRequest.password" name="password" />
+      </div>
+
+      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+      <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
+
+      <div class="buttons">
+        <button type="submit" [disabled]="loading">
+          {{ loading ? 'Saving...' : 'Save' }}
+        </button>
+        <button type="button" (click)="editing = false">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
