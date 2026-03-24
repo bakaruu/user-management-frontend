@@ -85,4 +85,4 @@ To test the admin dashboard, use the following credentials:
 |------|-------|----------|
 | ADMIN | admin@test.com | password123 |
 
-> ⚠️ **Note:** The admin account must be created manually by changing the role in the database. See the [backend README](https://github.com/tuusuario/user-management-api) for instructions.
+> ⚠️ **Note:** The admin account must be created manually by changing the role in the database. See the [backend README](https://github.com/bakaruu/user-management-api) for instructions.
