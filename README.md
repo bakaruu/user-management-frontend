@@ -1,59 +1,88 @@
-# UserManagementFrontend
+# 🧩 User Management Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.3.
+Angular frontend for the [User Management API](https://github.com/tuusuario/user-management-api).
 
-## Development server
+A minimal but functional SPA that demonstrates end-to-end integration with a secured Spring Boot REST API using JWT authentication and role-based access control.
 
-To start a local development server, run:
+> 🧠 **Note:** This frontend is intentionally simple — the focus of this project is the backend architecture. The UI exists to demonstrate that the API works correctly end-to-end.
 
+---
+
+## ⚙️ Technologies Used
+
+| | Technology |
+|--|------------|
+| 🅰️ | Angular 19 |
+| 🔷 | TypeScript |
+| 🔐 | JWT Authentication |
+| 🛡️ | Route Guards |
+| 🔄 | HTTP Interceptors |
+
+---
+
+## ✨ Features
+
+| | Feature |
+|--|---------|
+| 🔐 | Login and registration |
+| 👤 | User profile view and edit |
+| 🧑‍💼 | Admin dashboard — list, suspend, delete users |
+| 🛡️ | Route protection by role (USER / ADMIN) |
+| 🔄 | JWT automatically attached to every request |
+
+---
+
+## 🔗 Related Repository
+
+This frontend consumes the **User Management API**:
+👉 [user-management-api](https://github.com/bakaruu/user-management-api)
+
+Make sure the backend is running on `http://localhost:8080` before starting this app.
+
+---
+
+## 🚀 Getting Started
+
+**1. Clone the repository**
+```bash
+git clone https://github.com/bakaruu/user-management-frontend.git
+cd user-management-frontend
+```
+
+**2. Install dependencies**
+```bash
+npm install
+```
+
+**3. Run the application**
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+**4. Open in browser**
+```
+http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## 📡 Routes
 
-## Building
+| Route | Access | Description |
+|-------|--------|-------------|
+| `/login` | Public | Login form |
+| `/register` | Public | Registration form |
+| `/profile` | USER | View and edit own profile |
+| `/dashboard` | ADMIN | User management panel |
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+## 🔑 Test Credentials
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+To test the admin dashboard, use the following credentials:
 
-## Running unit tests
+| Role | Email | Password |
+|------|-------|----------|
+| ADMIN | admin@test.com | password123 |
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+> ⚠️ **Note:** The admin account must be created manually by changing the role in the database. See the [backend README](https://github.com/tuusuario/user-management-api) for instructions.
