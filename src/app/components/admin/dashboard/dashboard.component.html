@@ -7,33 +7,35 @@
   <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
   <p *ngIf="loading">Loading...</p>
 
-  <table *ngIf="!loading">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>DNI</th>
-        <th>Role</th>
-        <th>Status</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users">
-        <td>{{ user.firstName }} {{ user.lastName }}</td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.dni }}</td>
-        <td>{{ user.role }}</td>
-        <td>{{ user.status }}</td>
-        <td>
-          <div class="actions">
-            <button (click)="changeStatus(user)">
-              {{ user.status === 'ACTIVE' ? 'Suspend' : 'Activate' }}
-            </button>
-            <button (click)="deleteUser(user)" class="delete-btn">Delete</button>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-scroll">
+    <table *ngIf="!loading">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>DNI</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.firstName }} {{ user.lastName }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.dni }}</td>
+          <td>{{ user.role }}</td>
+          <td>{{ user.status }}</td>
+          <td>
+            <div class="actions">
+              <button (click)="changeStatus(user)">
+                {{ user.status === 'ACTIVE' ? 'Suspend' : 'Activate' }}
+              </button>
+              <button (click)="deleteUser(user)" class="delete-btn">Delete</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

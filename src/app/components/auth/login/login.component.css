@@ -1,4 +1,5 @@
 .login-container {
+  width: calc(100% - 32px);
   max-width: 400px;
   margin: 100px auto;
   padding: clamp(24px, 4vw, 40px);

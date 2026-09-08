@@ -24,6 +24,7 @@ export class ProfileComponent implements OnInit {
   successMessage: string = '';
   loading: boolean = false;
   editing: boolean = false;
+  private successTimeout: any;
 
   ngOnInit(): void {
     this.userService.getMe().subscribe({
@@ -42,17 +43,42 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  startEditing(): void {
+    if (!this.user) return;
+    this.updateRequest = {
+      firstName: this.user.firstName,
+      lastName: this.user.lastName,
+      email: this.user.email,
+      password: ''
+    };
+    this.editing = true;
+  }
+
   onUpdate(): void {
     this.loading = true;
     this.errorMessage = '';
     this.successMessage = '';
 
-    this.userService.updateMe(this.updateRequest).subscribe({
+    const payload: UpdateUserRequest = {
+      firstName: this.updateRequest.firstName,
+      lastName: this.updateRequest.lastName,
+      email: this.updateRequest.email
+    };
+    if (this.updateRequest.password) {
+      payload.password = this.updateRequest.password;
+    }
+
+    this.userService.updateMe(payload).subscribe({
       next: (user: User) => {
         this.user = user;
         this.editing = false;
         this.successMessage = 'Profile updated successfully';
         this.loading = false;
+
+        clearTimeout(this.successTimeout);
+        this.successTimeout = setTimeout(() => {
+          this.successMessage = '';
+        }, 4000);
       },
       error: (err: any) => {
         this.errorMessage = err.error?.message || 'Update failed';

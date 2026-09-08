@@ -1,4 +1,5 @@
 .profile-container {
+  width: calc(100% - 32px);
   max-width: 500px;
   margin: 60px auto;
   padding: clamp(24px, 4vw, 40px);

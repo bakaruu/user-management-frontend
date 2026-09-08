@@ -5,6 +5,8 @@
   </div>
 
   <div *ngIf="user">
+    <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
+
     <div *ngIf="!editing" class="info">
       <p><strong>First Name:</strong> {{ user.firstName }}</p>
       <p><strong>Last Name:</strong> {{ user.lastName }}</p>
@@ -12,7 +14,7 @@
       <p><strong>DNI:</strong> {{ user.dni }}</p>
       <p><strong>Role:</strong> {{ user.role }}</p>
       <p><strong>Status:</strong> {{ user.status }}</p>
-      <button (click)="editing = true">Edit Profile</button>
+      <button (click)="startEditing()">Edit Profile</button>
     </div>
 
     <form *ngIf="editing" (ngSubmit)="onUpdate()">
@@ -34,7 +36,6 @@
       </div>
 
       <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
-      <p *ngIf="successMessage" class="success">{{ successMessage }}</p>
 
       <div class="buttons">
         <button type="submit" [disabled]="loading">
