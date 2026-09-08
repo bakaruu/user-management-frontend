@@ -9,7 +9,7 @@ import { UserStatus } from '../models/user.model';
 })
 export class UserService {
 
-  private readonly API_URL = 'http://localhost:8080/users';
+  private readonly API_URL = 'https://api.bakaru.dev/users';
 
   constructor(private http: HttpClient) {}
 

@@ -8,7 +8,7 @@ import { AuthResponse, LoginRequest, RegisterRequest } from '../models/user.mode
 })
 export class AuthService {
 
-  private readonly API_URL = 'http://localhost:8080/auth';
+  private readonly API_URL = 'https://api.bakaru.dev/auth';
 
   constructor(private http: HttpClient) {}
 
