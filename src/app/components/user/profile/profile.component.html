@@ -34,8 +34,14 @@
         <label>New Password (optional)</label>
         <input type="password" [(ngModel)]="updateRequest.password" name="password" />
       </div>
+      <div>
+        <label>Confirm New Password</label>
+        <input type="password" [(ngModel)]="confirmPassword" name="confirmPassword" />
+      </div>
 
-      <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+      <ul *ngIf="errorMessages.length" class="error">
+        <li *ngFor="let msg of errorMessages">{{ msg }}</li>
+      </ul>
 
       <div class="buttons">
         <button type="submit" [disabled]="loading">

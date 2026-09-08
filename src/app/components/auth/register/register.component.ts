@@ -23,19 +23,22 @@ export class RegisterComponent {
     email: '',
     password: ''
   };
-  errorMessage: string = '';
+  errorMessages: string[] = [];
   loading: boolean = false;
 
   onSubmit(): void {
     this.loading = true;
-    this.errorMessage = '';
+    this.errorMessages = [];
 
     this.authService.register(this.request).subscribe({
       next: () => {
         this.router.navigate(['/profile']);
       },
       error: (err: any) => {
-        this.errorMessage = err.error?.message || 'Registration failed';
+        const fieldErrors = err.error?.errors;
+        this.errorMessages = fieldErrors
+          ? Object.values(fieldErrors) as string[]
+          : [err.error?.message || 'Registration failed'];
         this.loading = false;
       }
     });

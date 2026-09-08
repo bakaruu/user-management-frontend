@@ -20,7 +20,8 @@ export class ProfileComponent implements OnInit {
 
   user: User | null = null;
   updateRequest: UpdateUserRequest = {};
-  errorMessage: string = '';
+  confirmPassword: string = '';
+  errorMessages: string[] = [];
   successMessage: string = '';
   loading: boolean = false;
   editing: boolean = false;
@@ -51,13 +52,21 @@ export class ProfileComponent implements OnInit {
       email: this.user.email,
       password: ''
     };
+    this.confirmPassword = '';
+    this.errorMessages = [];
     this.editing = true;
   }
 
   onUpdate(): void {
-    this.loading = true;
-    this.errorMessage = '';
+    this.errorMessages = [];
     this.successMessage = '';
+
+    if (this.updateRequest.password && this.updateRequest.password !== this.confirmPassword) {
+      this.errorMessages = ['Passwords do not match'];
+      return;
+    }
+
+    this.loading = true;
 
     const payload: UpdateUserRequest = {
       firstName: this.updateRequest.firstName,
@@ -81,7 +90,10 @@ export class ProfileComponent implements OnInit {
         }, 4000);
       },
       error: (err: any) => {
-        this.errorMessage = err.error?.message || 'Update failed';
+        const fieldErrors = err.error?.errors;
+        this.errorMessages = fieldErrors
+          ? Object.values(fieldErrors) as string[]
+          : [err.error?.message || 'Update failed'];
         this.loading = false;
       }
     });
