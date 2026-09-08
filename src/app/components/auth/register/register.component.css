@@ -69,8 +69,18 @@ button:disabled {
 }
 
 .error {
-  color: #f87171;
+  list-style: none;
+  margin: 0 0 1.1rem;
+  padding: 12px 14px;
+  background: rgba(248, 113, 113, 0.08);
+  border: 1px solid rgba(248, 113, 113, 0.25);
+  border-radius: 8px;
   font-size: 0.875rem;
+}
+
+.error li {
+  color: #f87171;
+  padding: 2px 0;
 }
 
 p {
