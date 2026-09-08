@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit {
   users: User[] = [];
   errorMessage: string = '';
   loading: boolean = false;
+  private errorTimeout: any;
 
   ngOnInit(): void {
     this.loadUsers();
@@ -33,7 +34,7 @@ export class DashboardComponent implements OnInit {
         this.loading = false;
       },
       error: () => {
-        this.errorMessage = 'Failed to load users';
+        this.showError('Failed to load users');
         this.loading = false;
       }
     });
@@ -42,23 +43,37 @@ export class DashboardComponent implements OnInit {
   changeStatus(user: User): void {
     const newStatus = user.status === 'ACTIVE' ? 'SUSPENDED' : 'ACTIVE';
     this.userService.changeUserStatus(user.id, newStatus).subscribe({
-      next: () => this.loadUsers(),
-      error: (err: any) => this.errorMessage = err.error?.message || 'Failed to change status'
+      next: () => {
+        user.status = newStatus;
+        this.errorMessage = '';
+      },
+      error: (err: any) => this.showError(err.error?.message || 'Failed to change status')
     });
   }
 
   deleteUser(user: User): void {
-  if (user.role === 'ADMIN') {
-    this.errorMessage = 'Cannot delete an admin account';
-    return;
+    if (user.role === 'ADMIN') {
+      this.showError('Cannot delete an admin account');
+      return;
+    }
+    if (confirm('Are you sure you want to delete this user?')) {
+      this.userService.deleteUser(user.id).subscribe({
+        next: () => {
+          this.users = this.users.filter(u => u.id !== user.id);
+          this.errorMessage = '';
+        },
+        error: (err: any) => this.showError(err.error?.message || 'Failed to delete user')
+      });
+    }
   }
-  if (confirm('Are you sure you want to delete this user?')) {
-    this.userService.deleteUser(user.id).subscribe({
-      next: () => this.loadUsers(),
-      error: (err: any) => this.errorMessage = err.error?.message || 'Failed to delete user'
-    });
+
+  private showError(message: string): void {
+    this.errorMessage = message;
+    clearTimeout(this.errorTimeout);
+    this.errorTimeout = setTimeout(() => {
+      this.errorMessage = '';
+    }, 4000);
   }
-}
 
   logout(): void {
     this.authService.logout();

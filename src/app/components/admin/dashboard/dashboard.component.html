@@ -26,10 +26,12 @@
         <td>{{ user.role }}</td>
         <td>{{ user.status }}</td>
         <td>
-          <button (click)="changeStatus(user)">
-            {{ user.status === 'ACTIVE' ? 'Suspend' : 'Activate' }}
-          </button>
-          <button (click)="deleteUser(user)" class="delete-btn">Delete</button>
+          <div class="actions">
+            <button (click)="changeStatus(user)">
+              {{ user.status === 'ACTIVE' ? 'Suspend' : 'Activate' }}
+            </button>
+            <button (click)="deleteUser(user)" class="delete-btn">Delete</button>
+          </div>
         </td>
       </tr>
     </tbody>
