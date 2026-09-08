@@ -27,17 +27,20 @@ export class RegisterComponent {
   loading: boolean = false;
 
   onSubmit(): void {
-    this.loading = true;
-    this.errorMessage = '';
+  this.loading = true;
+  this.errorMessage = '';
 
-    this.authService.register(this.request).subscribe({
-      next: () => {
-        this.router.navigate(['/profile']);
-      },
-      error: (err: any) => {
-        this.errorMessage = err.error?.message || 'Registration failed';
-        this.loading = false;
-      }
-    });
-  }
+  this.authService.register(this.request).subscribe({
+    next: () => {
+      this.router.navigate(['/profile']);
+    },
+    error: (err: any) => {
+      const fieldErrors = err.error?.errors;
+      this.errorMessage = fieldErrors
+        ? Object.values(fieldErrors).join(' ')
+        : err.error?.message || 'Registration failed';
+      this.loading = false;
+    }
+  });
+}
 }
