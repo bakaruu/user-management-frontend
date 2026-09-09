@@ -12,8 +12,10 @@ export interface User {
 
 export interface AuthResponse {
   token: string;
+  refreshToken: string;
   role: 'USER' | 'ADMIN';
   user: User;
+  
 }
 
 export interface LoginRequest {
