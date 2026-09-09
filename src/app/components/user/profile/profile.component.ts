@@ -54,6 +54,7 @@ export class ProfileComponent implements OnInit {
     };
     this.confirmPassword = '';
     this.errorMessages = [];
+    this.successMessage = '';
     this.editing = true;
   }
 
