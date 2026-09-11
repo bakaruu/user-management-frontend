@@ -68,6 +68,12 @@ button:disabled {
   cursor: not-allowed;
 }
 
+.hint {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: #9aa1ab;
+}
+
 .error {
   list-style: none;
   margin: 0 0 1.1rem;

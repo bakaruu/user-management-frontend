@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User, UpdateUserRequest } from '../models/user.model';
 import { UserStatus } from '../models/user.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private readonly API_URL = 'https://api.bakaru.dev/users';
+  private readonly API_URL = `${environment.apiUrl}/users`;
 
   constructor(private http: HttpClient) {}
 
@@ -33,8 +34,8 @@ export class UserService {
     return this.http.put<User>(`${this.API_URL}/${id}`, request);
   }
 
-  changeUserStatus(id: string, status: string): Observable<void> {
-    return this.http.patch<void>(`${this.API_URL}/${id}/status`, status);
+  changeUserStatus(id: string, status: UserStatus): Observable<void> {
+    return this.http.patch<void>(`${this.API_URL}/${id}/status`, { status });
   }
 
   deleteUser(id: string): Observable<void> {

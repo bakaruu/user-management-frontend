@@ -1,37 +1,39 @@
 <div class="register-container">
   <h2>Register</h2>
 
-  <form (ngSubmit)="onSubmit()">
+  <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
     <div>
       <label>First Name</label>
-      <input type="text" [(ngModel)]="request.firstName" name="firstName" />
+      <input type="text" [(ngModel)]="request.firstName" name="firstName" required #firstName="ngModel" />
     </div>
 
     <div>
       <label>Last Name</label>
-      <input type="text" [(ngModel)]="request.lastName" name="lastName" />
+      <input type="text" [(ngModel)]="request.lastName" name="lastName" required #lastName="ngModel" />
     </div>
 
     <div>
       <label>DNI</label>
-      <input type="text" [(ngModel)]="request.dni" name="dni" />
+      <input type="text" [(ngModel)]="request.dni" name="dni" required pattern="^[0-9]{8}[A-Za-z]$" #dni="ngModel" />
+      <p class="hint" *ngIf="dni.invalid && dni.touched">8 digits followed by a letter (e.g. 12345678A)</p>
     </div>
 
     <div>
       <label>Email</label>
-      <input type="email" [(ngModel)]="request.email" name="email" />
+      <input type="email" [(ngModel)]="request.email" name="email" required email #email="ngModel" />
     </div>
 
     <div>
       <label>Password</label>
-      <input type="password" [(ngModel)]="request.password" name="password" />
+      <input type="password" [(ngModel)]="request.password" name="password" required minlength="8" #password="ngModel" />
+      <p class="hint" *ngIf="password.invalid && password.touched">At least 8 characters</p>
     </div>
 
     <ul *ngIf="errorMessages.length" class="error">
       <li *ngFor="let msg of errorMessages">{{ msg }}</li>
     </ul>
 
-    <button type="submit" [disabled]="loading">
+    <button type="submit" [disabled]="loading || registerForm.invalid">
       {{ loading ? 'Loading...' : 'Register' }}
     </button>
   </form>

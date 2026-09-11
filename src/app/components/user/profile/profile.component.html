@@ -17,22 +17,23 @@
       <button (click)="startEditing()">Edit Profile</button>
     </div>
 
-    <form *ngIf="editing" (ngSubmit)="onUpdate()">
+    <form #profileForm="ngForm" *ngIf="editing" (ngSubmit)="onUpdate()">
       <div>
         <label>First Name</label>
-        <input type="text" [(ngModel)]="updateRequest.firstName" name="firstName" />
+        <input type="text" [(ngModel)]="updateRequest.firstName" name="firstName" required />
       </div>
       <div>
         <label>Last Name</label>
-        <input type="text" [(ngModel)]="updateRequest.lastName" name="lastName" />
+        <input type="text" [(ngModel)]="updateRequest.lastName" name="lastName" required />
       </div>
       <div>
         <label>Email</label>
-        <input type="email" [(ngModel)]="updateRequest.email" name="email" />
+        <input type="email" [(ngModel)]="updateRequest.email" name="email" required email />
       </div>
       <div>
         <label>New Password (optional)</label>
-        <input type="password" [(ngModel)]="updateRequest.password" name="password" />
+        <input type="password" [(ngModel)]="updateRequest.password" name="password" minlength="8" #password="ngModel" />
+        <p class="hint" *ngIf="password.invalid && password.touched">At least 8 characters</p>
       </div>
       <div>
         <label>Confirm New Password</label>
@@ -44,7 +45,7 @@
       </ul>
 
       <div class="buttons">
-        <button type="submit" [disabled]="loading">
+        <button type="submit" [disabled]="loading || profileForm.invalid">
           {{ loading ? 'Saving...' : 'Save' }}
         </button>
         <button type="button" (click)="editing = false">Cancel</button>
