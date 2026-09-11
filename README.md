@@ -1,5 +1,7 @@
 # 🧩 User Management Frontend
 
+[![CI](https://github.com/bakaruu/user-management-frontend/actions/workflows/ci.yml/badge.svg)](https://github.com/bakaruu/user-management-frontend/actions/workflows/ci.yml)
+
 Angular frontend for the User Management API.
 
 A minimal but functional SPA that demonstrates end-to-end integration with a secured Spring Boot REST API using JWT authentication and role-based access control.
@@ -30,6 +32,7 @@ A minimal but functional SPA that demonstrates end-to-end integration with a sec
 | 🛡️ | Route protection by role (USER / ADMIN) |
 | 🔄 | JWT automatically attached to every request |
 | ♻️ | Silent access-token refresh on expiry — no re-login required mid-session |
+| ✅ | Continuous integration — build and tests run automatically on every push via GitHub Actions |
 
 ---
 
