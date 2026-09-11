@@ -1,6 +1,6 @@
 # 🧩 User Management Frontend
 
-Angular frontend for the [User Management API](https://github.com/bakaruu/user-management-api).
+Angular frontend for the User Management API.
 
 A minimal but functional SPA that demonstrates end-to-end integration with a secured Spring Boot REST API using JWT authentication and role-based access control.
 
@@ -29,15 +29,15 @@ A minimal but functional SPA that demonstrates end-to-end integration with a sec
 | 🧑‍💼 | Admin dashboard — list, suspend, delete users |
 | 🛡️ | Route protection by role (USER / ADMIN) |
 | 🔄 | JWT automatically attached to every request |
+| ♻️ | Silent access-token refresh on expiry — no re-login required mid-session |
 
 ---
 
 ## 🔗 Related Repository
 
-This frontend consumes the **User Management API**:
-👉 [user-management-api](https://github.com/bakaruu/user-management-api)
+This frontend consumes the User Management API: 👉 [user-management-api](https://github.com/bakaruu/user-management-api)
 
-Make sure the backend is running on `http://localhost:8080` before starting this app.
+⚠️ `API_URL` is currently hardcoded in `src/app/services/auth.service.ts` and `src/app/services/user.service.ts`. To run against your own local backend instead, change it to `http://localhost:8080` in both files.
 
 ---
 
@@ -60,9 +60,7 @@ ng serve
 ```
 
 **4. Open in browser**
-```
 http://localhost:4200
-```
 
 ---
 
@@ -85,4 +83,4 @@ To test the admin dashboard, use the following credentials:
 |------|-------|----------|
 | ADMIN | admin@test.com | password123 |
 
-> ⚠️ **Note:** The admin account must be created manually by changing the role in the database. See the [backend README](https://github.com/bakaruu/user-management-api) for instructions.
+> ⚠️ **Note:** The `/auth/register` endpoint always creates `USER`-role accounts by design — there's no privilege-escalation path through the API. The first admin account is seeded directly into the database, a one-time bootstrap step for any system with role-based access control.
